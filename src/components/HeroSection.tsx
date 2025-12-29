@@ -30,6 +30,9 @@ export default function HeroSection() {
       >
         Scan crypto markets, understand momentum, and do your own research —
         without signals, hype, or predictions.
+        <br />
+        <br />
+        Trusted by independent traders who don’t follow signals.
       </motion.p>
 
       <motion.div
