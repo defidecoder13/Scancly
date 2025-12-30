@@ -24,7 +24,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section className="py-40 relative">
+    <section id="features" className="py-20 md:py-32 relative">
       {/* Section header */}
       <div className="text-center max-w-3xl mx-auto mb-24">
         <h2 className="text-4xl md:text-5xl font-semibold">
@@ -42,6 +42,7 @@ export default function FeaturesSection() {
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
         {features.map((f, i) => (
           <motion.div
+          
             key={i}
             whileHover={{ y: -6 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}

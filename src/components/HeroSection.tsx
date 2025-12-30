@@ -6,10 +6,7 @@ import HeroBackground from "./HeroBackground";
 
 export default function HeroSection() {
   return (
-    <section className="relative pt-32 pb-28 text-center overflow-hidden">
-      <HeroGlow />
-      <HeroBackground />
-
+    <section className="relative py-20 md:py-32 text-center overflow-hidden">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -51,7 +48,7 @@ export default function HeroSection() {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="relative px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium"
         >
-          Get started free
+          Get started for free
         </motion.a>
 
         <motion.a

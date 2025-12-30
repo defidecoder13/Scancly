@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function PricingTeaser() {
   return (
-    <section className="py-40 text-center">
+    <section id="pricing" className="py-20 md:py-32 text-center">
       <h2 className="text-4xl md:text-5xl font-semibold">
         Pricing that grows with your
         <span className="block bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">

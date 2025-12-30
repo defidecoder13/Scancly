@@ -56,13 +56,6 @@ export default function Footer() {
           </motion.a>
         </motion.div>
 
-        {/* micro trust row */}
-        <div className="mt-6 flex flex-wrap justify-center gap-6 text-sm text-slate-400">
-          <span>✓ No credit card required</span>
-          <span>✓ Built for DYOR</span>
-          <span>✓ Cancel anytime</span>
-        </div>
-
         {/* footer links */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-12 text-left text-sm">
           {/* brand */}

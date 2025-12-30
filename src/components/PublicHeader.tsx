@@ -6,16 +6,17 @@ import { motion } from "framer-motion";
 
 export default function PublicHeader() {
   return (
-    <header className="sticky top-0 z-50 h-16 bg-[#0b0f14]/80 backdrop-blur ">
+    
+    <header className="z-50 bg-[#0b0f14]/80 backdrop-blur py-1">
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
 
         {/* Logo */}
         <div className="flex items-center">
           <Image
-            src="/logo/Scanly.svg"
+            src="/logo/Scanly svg.svg"
             alt="Scanly logo"
-            width={120}
-            height={28}
+            width={200}
+            height={50}
             priority
             className="object-contain"
           />
@@ -50,7 +51,7 @@ export default function PublicHeader() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium"
           >
-            Get started
+            Register
           </motion.a>
 
         </nav>

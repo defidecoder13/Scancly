@@ -1,4 +1,5 @@
 import "./globals.css";
+import { AuthProvider } from "../context/AuthContext";
 
 export const metadata = {
   title: "Scanly — Smarter market scanning",
@@ -12,9 +13,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white antialiased">
-        {children}
+      <body>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
 }
+
+

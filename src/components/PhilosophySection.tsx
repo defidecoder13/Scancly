@@ -26,7 +26,7 @@ const items = [
 
 export default function PhilosophySection() {
   return (
-    <section className="py-32 ">
+    <section className="py-20 md:py-32 ">
       {/* TAGLINE */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}

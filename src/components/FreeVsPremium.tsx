@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function FreeVsPremium() {
   return (
-    <section className="py-40">
+    <section id="comparison" className="py-20 md:py-32">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-20">
         <h2 className="text-4xl md:text-5xl font-semibold">
