@@ -2,6 +2,62 @@
 
 import { motion } from "framer-motion";
 
+/* ------------------ Motion Variants ------------------ */
+
+const observerVariant = {
+  rest: {
+    y: 0,
+    scale: 1,
+    boxShadow: "0 0 0 rgba(0,0,0,0)",
+  },
+  hover: {
+    y: -4,
+    scale: 1.02,
+    boxShadow: "0 8px 28px rgba(0,0,0,0.35)",
+    transition: {
+      type: "spring",
+      stiffness: 180,
+      damping: 18,
+    },
+  },
+};
+
+const analystVariant = {
+  rest: {
+    y: 0,
+    scale: 1,
+  },
+  hover: {
+    y: -8,
+    scale: 1.05,
+    transition: {
+      type: "spring",
+      stiffness: 240,
+      damping: 18,
+    },
+  },
+};
+
+const operatorVariant = {
+  rest: {
+    y: 0,
+    scale: 1,
+    boxShadow: "0 0 0 rgba(168,85,247,0)",
+  },
+  hover: {
+    y: -6,
+    scale: 1.03,
+    boxShadow: "0 14px 40px rgba(168,85,247,0.28)",
+    transition: {
+      type: "spring",
+      stiffness: 200,
+      damping: 18,
+    },
+  },
+};
+
+/* ------------------ Component ------------------ */
+
 export default function PricingTeaser() {
   return (
     <section id="pricing" className="py-20 md:py-32 text-center">
@@ -18,8 +74,13 @@ export default function PricingTeaser() {
 
       <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
 
-        {/* Observer */}
-        <div className="rounded-2xl border border-slate-800 bg-[#0e131b]/80 p-8 text-left">
+        {/* ---------------- Observer ---------------- */}
+        <motion.div
+          variants={observerVariant}
+          initial="rest"
+          whileHover="hover"
+          className="rounded-2xl border border-slate-800 bg-[#0e131b]/80 p-8 text-left"
+        >
           <h3 className="text-xl font-semibold">Observer</h3>
           <p className="mt-2 text-slate-400">Explore the market</p>
 
@@ -32,15 +93,19 @@ export default function PricingTeaser() {
             <li>✓ Basic watchlist</li>
           </ul>
 
-          <button className="mt-10 w-full rounded-xl border border-slate-700 py-3 text-slate-300 hover:bg-white/5 transition">
+          <motion.button
+            whileHover={{ y: -1 }}
+            className="mt-10 w-full rounded-xl border border-slate-700 py-3 text-slate-300 hover:bg-white/5 transition"
+          >
             Start observing
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
-        {/* Analyst (Featured) */}
+        {/* ---------------- Analyst (Featured) ---------------- */}
         <motion.div
-          whileHover={{ y: -6 }}
-          transition={{ type: "spring", stiffness: 220, damping: 20 }}
+          variants={analystVariant}
+          initial="rest"
+          whileHover="hover"
           className="relative rounded-2xl p-[1px] bg-gradient-to-br from-blue-500 to-purple-600"
         >
           <div className="rounded-2xl bg-[#0b0f14] p-8 text-left h-full">
@@ -75,8 +140,13 @@ export default function PricingTeaser() {
           </div>
         </motion.div>
 
-        {/* Operator */}
-        <div className="rounded-2xl border border-purple-500/30 bg-[#0e131b]/80 p-8 text-left">
+        {/* ---------------- Operator ---------------- */}
+        <motion.div
+          variants={operatorVariant}
+          initial="rest"
+          whileHover="hover"
+          className="rounded-2xl border border-purple-500/30 bg-[#0e131b]/80 p-8 text-left"
+        >
           <h3 className="text-xl font-semibold">Operator</h3>
           <p className="mt-2 text-slate-400">Serious market scanning</p>
 
@@ -91,10 +161,17 @@ export default function PricingTeaser() {
             <li>✓ Priority processing</li>
           </ul>
 
-          <button className="mt-10 w-full rounded-xl border border-purple-500/40 py-3 text-purple-300 hover:bg-purple-500/10 transition">
+          <motion.button
+            whileHover={{
+              y: -2,
+              boxShadow: "0 0 24px rgba(168,85,247,0.45)",
+            }}
+            whileTap={{ scale: 0.97 }}
+            className="mt-10 w-full rounded-xl border border-purple-500/40 py-3 text-purple-300 hover:bg-purple-500/10 transition"
+          >
             Become an Operator
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
 
       <p className="mt-14 text-sm text-slate-500">

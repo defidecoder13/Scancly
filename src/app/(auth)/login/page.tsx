@@ -1,22 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
 import { supabase } from "../../../lib/supabase";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    router.push("/dashboard");
     setLoading(true);
     setError(null);
 
@@ -24,74 +21,87 @@ export default function LoginPage() {
       email,
       password,
     });
-    const { data } = await supabase.auth.getSession();
-    console.log("SESSION AFTER LOGIN:", data.session);
-
-    setLoading(false);
 
     if (error) {
       setError(error.message);
+      setLoading(false);
+      return;
     }
-  };
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      console.log("SESSION:", data.session);
-    });
-  }, []);
+
+    router.push("/dashboard");
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="w-half max-w-lg"
-      >
-        <div className="rounded-2xl bg-[#0f141b] border border-white/10 p-8">
-          <h1 className="text-2xl font-semibold text-white">Welcome back</h1>
-          <p className="mt-1 text-sm text-slate-400">
-            Log in to continue scanning markets.
-          </p>
+    <div className="min-h-screen bg-[#0b0f14] text-white flex items-start justify-center">
+      <div className="w-half max-w-md px-4 pt-32">
+        {/* Heading */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-semibold">
+            Log in to your{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Scanly account
+            </span>
+          </h1>
 
-          <form onSubmit={handleLogin} className="mt-6 space-y-4">
+          <p className="mt-3 text-sm text-slate-400">
+            Access market scanners, AI summaries, and insights trusted by
+            independent traders.
+          </p>
+          <br />
+          <br />
+        </div>
+
+        {/* Login Card */}
+        <div className="rounded-2xl border border-slate-800 bg-[#0e131b]/80 p-8">
+          <form onSubmit={handleLogin} className="space-y-4">
             <input
               type="email"
               placeholder="Email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full rounded-xl bg-[#0b0f14] border border-white/10 px-4 py-3 text-sm text-white"
+              className="w-full rounded-xl bg-[#0b0f14] border border-slate-700 px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
             />
 
             <input
               type="password"
               placeholder="Password"
+              required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full rounded-xl bg-[#0b0f14] border border-white/10 px-4 py-3 text-sm text-white"
+              className="w-full rounded-xl bg-[#0b0f14] border border-slate-700 px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
             />
 
-            {error && <p className="text-sm text-red-400">{error}</p>}
+            {error && <p className="text-xs text-red-400">{error}</p>}
 
             <motion.button
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.98 }}
+              type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-3 text-sm font-medium text-white disabled:opacity-60"
+              whileHover={{
+                y: -2,
+                boxShadow: "0 12px 30px rgba(99,102,241,0.35)",
+              }}
+              whileTap={{ scale: 0.97, y: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className={`
+              mt-4 w-full rounded-xl py-3 text-sm font-medium text-white
+              bg-gradient-to-r from-blue-500 to-purple-500
+              focus:outline-none
+              disabled:opacity-60 disabled:cursor-not-allowed
+  `}
             >
-              {loading ? "Logging in..." : "Login"}
+              {loading ? "Signing in..." : "Sign in"}
             </motion.button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-slate-400">
+          <p className="mt-6 text-center text-xs text-slate-400">
             Don’t have an account?{" "}
-            <Link href="/register" className="text-blue-400 hover:underline">
+            <a href="/register" className="text-blue-400 hover:underline">
               Create one
-            </Link>
-          </div>
+            </a>
+          </p>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

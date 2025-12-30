@@ -20,7 +20,6 @@ export default function FreeVsPremium() {
 
       {/* Comparison cards */}
       <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        
         {/* Free */}
         <div className="rounded-2xl border border-slate-800 bg-[#0e131b]/80 p-8">
           <h3 className="text-xl font-semibold">Observer (Free)</h3>
@@ -36,7 +35,8 @@ export default function FreeVsPremium() {
           </ul>
 
           <p className="mt-8 text-sm text-slate-500">
-            Perfect for learning how Scanly works and understanding market structure.
+            Perfect for learning how Scanly works and understanding market
+            structure.
           </p>
         </div>
 
@@ -61,20 +61,28 @@ export default function FreeVsPremium() {
             </ul>
 
             <p className="mt-8 text-sm text-slate-400">
-              Most users upgrade once they start relying on Scanly for daily decisions.
+              Most users upgrade once they start relying on Scanly for daily
+              decisions.
             </p>
 
-            <motion.a
-              href="/pricing"
+            <motion.button
+              type="button"
               whileHover={{
                 y: -2,
                 boxShadow: "0 10px 30px rgba(99,102,241,0.4)",
               }}
               whileTap={{ scale: 0.96 }}
+              onClick={() => {
+                const pricing = document.getElementById("pricing");
+                pricing?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
               className="mt-10 inline-block w-full text-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 py-3 font-medium text-white"
             >
               See pricing
-            </motion.a>
+            </motion.button>
           </div>
         </motion.div>
       </div>

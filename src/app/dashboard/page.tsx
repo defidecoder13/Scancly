@@ -12,18 +12,12 @@ export default function DashboardPage() {
   // Redirect if unauthenticated (NO UI FLASH)
   useEffect(() => {
     if (!loading && !user) {
-      router.replace("/login");
+      router.replace("/");
     }
   }, [loading, user, router]);
 
   // Block render until auth is resolved
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-slate-400">
-        Checking session…
-      </div>
-    );
-  }
+  
 
   // IMPORTANT: never render "Not authenticated"
   if (!user) return null;

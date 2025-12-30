@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { supabase } from "../../../lib/supabase";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSignup = async (e: React.FormEvent) => {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -21,70 +22,85 @@ export default function RegisterPage() {
       password,
     });
 
-    if (error) setError(error.message);
-    setLoading(false);
-  };
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+      return;
+    }
+
+    router.push("/dashboard");
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="w-half max-w-lg rounded-2xl border border-slate-800 bg-[#0b0f14]/90 backdrop-blur p-8"
-      >
+    <div className="min-h-screen bg-[#0b0f14] text-white flex items-start justify-center">
+      <div className="w-half max-w-md px-4 pt-32">
         {/* Heading */}
-        <div className="mb-6 text-center">
-          <h1 className="text-2xl font-semibold text-white">
-            Create your account
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-semibold">
+            Create your{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Scanly account
+            </span>
           </h1>
-          <p className="mt-1 text-sm text-slate-400">
-            Start scanning smarter in seconds.
+
+          <p className="mt-3 text-sm text-slate-400">
+            Start scanning markets and building conviction in minutes.
           </p>
+          <br />
+          <br />
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSignup} className="space-y-4">
-          <input
-            type="email"
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-lg border border-slate-800 bg-transparent px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500"
-          />
+        {/* Register Card */}
+        <div className="rounded-2xl border border-slate-800 bg-[#0e131b]/80 p-8">
+          <form onSubmit={handleRegister} className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded-xl bg-[#0b0f14] border border-slate-700 px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
+            />
 
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-lg border border-slate-800 bg-transparent px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500"
-          />
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-xl bg-[#0b0f14] border border-slate-700 px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500"
+            />
 
-          {error && (
-            <p className="text-sm text-red-400">{error}</p>
-          )}
+            {error && <p className="text-xs text-red-400">{error}</p>}
 
-          <motion.button
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            disabled={loading}
-            className="w-full rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 py-3 text-sm font-medium text-white disabled:opacity-60"
-          >
-            {loading ? "Creating account..." : "Create account"}
-          </motion.button>
-        </form>
+            <motion.button
+              type="submit"
+              disabled={loading}
+              whileHover={{
+                y: -2,
+                boxShadow: "0 12px 30px rgba(99,102,241,0.35)",
+              }}
+              whileTap={{ scale: 0.97, y: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className={`
+    mt-4 w-full rounded-xl py-3 text-sm font-medium text-white
+    bg-gradient-to-r from-blue-500 to-purple-500
+    focus:outline-none
+    disabled:opacity-60 disabled:cursor-not-allowed
+  `}
+            >
+              {loading ? "Creating account..." : "create account"}
+            </motion.button>
+          </form>
 
-        {/* Footer */}
-        <p className="mt-6 text-center text-sm text-slate-400">
-          Already have an account?{" "}
-          <Link href="/login" className="text-blue-400 hover:underline">
-            Log in
-          </Link>
-        </p>
-      </motion.div>
+          <p className="mt-6 text-center text-xs text-slate-400">
+            Already have an account?{" "}
+            <a href="/login" className="text-blue-400 hover:underline">
+              Log in
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
